@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/family_service_platform?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: lhb280214
+
+mybatis-plus:
+  mapper-locations: classpath:com/andy/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# sql日志打印
+logging:
+  level:
+    com:
+      andy:
+        mapper: debug

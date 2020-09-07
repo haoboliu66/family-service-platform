@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "logging.com.andy.mapper",
+      "type": "java.lang.String",
+      "description": "Description for logging.com.andy.mapper."
+  }
+] }
