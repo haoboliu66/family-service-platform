@@ -195,7 +195,6 @@
                     if (valid) {
                         const data = QS.stringify(this.form)  //获取表单数据
                         insertEstate(data).then(res => {  // 发送请求到后台
-                            console.log(res)
                             if (res.message == '1') {
                                 setTimeout(() => {
                                     this.$notification.success({

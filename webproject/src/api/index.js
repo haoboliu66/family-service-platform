@@ -16,6 +16,9 @@ const api = {
     updateBuilding: '/estate/updateBuilding',
     selectUnit: '/estate/selectUnit',
     updateUnit: '/estate/updateUnit',
-    insertCell: '/estate/insertCell'
+    insertCell: '/estate/insertCell',
+    selectBuildingByEstate: '/estate/selectBuildingByEstate',
+    selectUnitByBuildingCode: '/estate/selectUnitByBuildingCode',
+    selectCell: '/estate/selectCell'
 }
 export default api

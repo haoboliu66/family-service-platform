@@ -173,9 +173,10 @@
             const sentData = this.$store.state.twoStep.unitMessage
             selectUnit(sentData).then(res => {
                 const result = res.result
+                const myData = []
                 for (let i = 0; i < result.length; i++) {
                     const unit = result[i]
-                    data.push({
+                    myData.push({
                         key: unit.id,
                         buildingCode: unit.buildingCode,
                         unitCode: unit.unitCode,
@@ -187,7 +188,8 @@
                         remark: unit.remark
                     })
                 }
-                this.cacheData = data.map(item => ({ ...item }))
+                this.data = myData
+                this.cacheData = this.data.map(item => ({ ...item }))
             }).catch(err => {
                 this.$notification.error({
                     message: 'fail',
@@ -241,10 +243,10 @@
                     }
 
                 }
-                // console.log(params)
 
                 this.$store.commit('SET_TITLE', {
-                    cellMessage: params
+                    cellMessage: params,
+                    estateCode: this.$store.state.twoStep.estateCode
                 })
 
                 this.$emit('nextStep')

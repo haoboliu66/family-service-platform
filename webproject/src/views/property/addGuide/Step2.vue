@@ -201,9 +201,10 @@ export default {
             .then(res => {
                 // 进行数据回显
                 const result = res.result
+                const myData = []
                 for (let i = 0; i < result.length; i++) {
                     const building = result[i]
-                    data.push({
+                    myData.push({
                         key: building.id,
                         buildingCode: building.buildingCode,
                         buildingName: building.buildingName,
@@ -216,8 +217,9 @@ export default {
                         usedArea: building.usedArea,
                         remark: building.remark
                     })
-                    this.cacheData = data.map(item => ({ ...item }))
                 }
+                this.data = myData
+                this.cacheData = this.data.map(item => ({ ...item }))
 
             })
             .catch(err => {
@@ -252,7 +254,8 @@ export default {
             }
             //单向数据流动设置
             this.$store.commit('SET_TITLE', {
-                unitMessage: param
+                unitMessage: param,
+                estateCode: this.$store.state.oneStep.estateCode
             })
             this.$emit('nextStep')
         },

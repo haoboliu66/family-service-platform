@@ -1,12 +1,11 @@
 package com.andy.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.andy.bean.Company;
-import com.andy.bean.FcBuilding;
-import com.andy.bean.FcEstate;
-import com.andy.bean.FcUnit;
+import com.andy.bean.*;
 import com.andy.returnjson.ReturnObject;
 import com.andy.service.EstateService;
+import com.andy.vo.CellMessage;
 import com.andy.vo.UnitMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,6 @@ public class EstateController {
 
         return JSONObject.toJSONString(new ReturnObject(result.toString(), msg));
     }
-
 
     /**
      * 完成楼宇的insertion和query
@@ -92,24 +90,57 @@ public class EstateController {
 
     /**
      * update unit infomation
+     *
      * @param fcUnit
      * @return
      */
     @RequestMapping("/updateUnit")
-    public String updateUnit(FcUnit fcUnit){
+    public String updateUnit(FcUnit fcUnit) {
         Integer res = estateService.updateUnit(fcUnit);
         String msg;
-        if(res == 1){
+        if (res == 1) {
             msg = "unit update success";
-        }else{
+        } else {
             msg = "unit update fail";
         }
         return JSONObject.toJSONString(new ReturnObject(msg));
     }
 
-//    @RequestMapping("/insertCell")
-//    public String insertCell(@RequestBody ){
-//
-//    }
+    @RequestMapping("/insertCell")
+    public String insertCell(@RequestBody CellMessage[] cellMessages) {
+        System.out.println("insertCell");
+        List<FcCell> cellList = estateService.insertCell(cellMessages);
+
+        return JSONObject.toJSONString(new ReturnObject(cellList));
+    }
+
+    @RequestMapping("/selectBuildingByEstate")
+    public String selectBuildingByEstate(String estateCode){
+        System.out.println("estateCode === " + estateCode);
+        List<FcBuilding> buildingList = estateService.selectBuildingByEstate(estateCode);
+        System.out.println("---------------");
+        System.out.println(buildingList);
+        return JSONObject.toJSONString(new ReturnObject(buildingList));
+    }
+
+    @RequestMapping("/selectUnitByBuildingCode")
+    public String selectUnitByBuildingCode(String buildingCode){
+        System.out.println("selectUnitByBuildingCode");
+        List<FcUnit> unitList = estateService.selectUnitByBuildingCode(buildingCode);
+        System.out.println("**************");
+        unitList.forEach(System.out::println);
+        return JSONObject.toJSONString(new ReturnObject(unitList));
+    }
+
+    @RequestMapping("/selectCell")
+    public String selectCell(String unitCode){
+        System.out.println();
+        List<FcCell> cellList = estateService.selectCell(unitCode);
+        System.out.println(cellList.size());
+        cellList.forEach(System.out::println);
+
+        return JSONObject.toJSONString(new ReturnObject(cellList));
+
+    }
 
 }

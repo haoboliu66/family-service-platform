@@ -64,7 +64,33 @@ export function insertCell(params) {
         headers: {
             'Content-Type': "application/json"
         }
+    })
+}
 
+export function selectBuildingByEstate(params) {
+    return axios({
+        url: api.selectBuildingByEstate,
+        method: 'post',
+        data: params
     })
 
 }
+
+export function selectUnitByBuildingCode(params) {
+    return axios({
+        url: api.selectUnitByBuildingCode,
+        method: 'post',
+        data: params
+    })
+
+}
+
+export function selectCell(params) {
+    return axios({
+        url: api.selectCell,
+        method: 'post',
+        data: params
+    })
+
+}
+

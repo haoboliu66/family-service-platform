@@ -1,14 +1,10 @@
 package com.andy.service;
 
-import com.andy.bean.Company;
-import com.andy.bean.FcBuilding;
-import com.andy.bean.FcEstate;
-import com.andy.bean.FcUnit;
-import com.andy.mapper.CompanyMapper;
-import com.andy.mapper.FcBuildingMapper;
-import com.andy.mapper.FcEstateMapper;
-import com.andy.mapper.FcUnitMapper;
+import com.andy.bean.*;
+import com.andy.mapper.*;
+import com.andy.vo.CellMessage;
 import com.andy.vo.UnitMessage;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +31,9 @@ public class EstateService {
 
     @Autowired
     private FcUnitMapper fcUnitMapper;
+
+    @Autowired
+    private FcCellMapper fcCellMapper;
 
     public List<Company> selectCompany() {
         return companyMapper.selectCompany();
@@ -65,7 +64,7 @@ public class EstateService {
         List<FcBuilding> buildingList = new ArrayList<>();
         for (int i = 0; i < buildingNumber; i++) {
             FcBuilding building = new FcBuilding();
-            building.setBuildingCode("B" + (i + 1));
+            building.setBuildingCode(estateCode + "B" + (i + 1));
             building.setBuildingName("Num" + (i + 1));
             building.setEstateCode(estateCode);
 
@@ -78,19 +77,26 @@ public class EstateService {
 
     /**
      * update building info
+     *
      * @param fcBuilding
      * @return
      */
-    public Integer updateBuilding(FcBuilding fcBuilding){
-       return fcBuildingMapper.updateById(fcBuilding);
+    public Integer updateBuilding(FcBuilding fcBuilding) {
+        return fcBuildingMapper.updateById(fcBuilding);
     }
 
-    public List<FcUnit> selectUnit(UnitMessage unitMessage){
+    /**
+     * insert and query units
+     *
+     * @param unitMessage
+     * @return
+     */
+    public List<FcUnit> selectUnit(UnitMessage unitMessage) {
         List<FcUnit> units = new ArrayList<>();
-        for(int i = 0; i < unitMessage.getUnitCount(); i++){
+        for (int i = 0; i < unitMessage.getUnitCount(); i++) {
             FcUnit fcUnit = new FcUnit();
             fcUnit.setBuildingCode(unitMessage.getBuildingCode());
-            fcUnit.setUnitCode("U" + (i + 1));
+            fcUnit.setUnitCode(unitMessage.getBuildingCode() + "U" + (i + 1));
             fcUnit.setUnitName("Num" + (i + 1));
             fcUnitMapper.insert(fcUnit);
             units.add(fcUnit);
@@ -100,11 +106,65 @@ public class EstateService {
 
     /**
      * update unit
+     *
      * @param fcUnit
      * @return
      */
-    public Integer updateUnit(FcUnit fcUnit){
+    public Integer updateUnit(FcUnit fcUnit) {
         return fcUnitMapper.updateById(fcUnit);
+    }
+
+
+    /**
+     * insert and query cells
+     *
+     * @param cellMessages
+     * @return
+     */
+    public List<FcCell> insertCell(CellMessage[] cellMessages) {
+        List<FcCell> cellList = new ArrayList<>();
+        for (CellMessage cellMessage : cellMessages) {
+            // floor loop
+            for (int i = 1; i <= cellMessage.getEndFloor(); i++) {
+                // cell loop
+                for (int j = cellMessage.getStartCellId(); j <= cellMessage.getEndCellId(); j++) {
+                    FcCell cell = new FcCell();
+                    cell.setUnitCode(cellMessage.getUnitCode());
+                    cell.setCellCode(cellMessage.getUnitCode() + "C" + i + "0" + j);
+                    cell.setCellName(i + "0" + j);
+                    cell.setFloorNumber(i);
+                    fcCellMapper.insert(cell);
+                    cellList.add(cell);
+                }
+            }
+        }
+
+        return cellList;
+    }
+
+
+    public List<FcBuilding> selectBuildingByEstate(String estateCode) {
+        QueryWrapper<FcBuilding> wrapper = new QueryWrapper<>();
+        wrapper.eq("estate_code", estateCode);
+        //用select指定要选择的resultSet
+        wrapper.select("building_name", "building_code");
+        return fcBuildingMapper.selectList(wrapper);
+    }
+
+    public List<FcUnit> selectUnitByBuildingCode(String buildingCode) {
+        QueryWrapper<FcUnit> wrapper = new QueryWrapper<>();
+        wrapper.eq("building_code", buildingCode);
+        //用select指定要选择的resultSet
+        wrapper.select("unit_code", "unit_name");
+
+        return fcUnitMapper.selectList(wrapper);
+    }
+
+    public List<FcCell> selectCell(String unitCode) {
+        QueryWrapper<FcCell> wrapper = new QueryWrapper<>();
+        wrapper.eq("unit_code", unitCode);
+
+        return fcCellMapper.selectList(wrapper);
     }
 
 }
