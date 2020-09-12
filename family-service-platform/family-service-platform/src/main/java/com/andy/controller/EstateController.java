@@ -140,7 +140,16 @@ public class EstateController {
         cellList.forEach(System.out::println);
 
         return JSONObject.toJSONString(new ReturnObject(cellList));
-
     }
+
+    @RequestMapping("/selectEstate")
+    public String selectEstate(String company){
+        System.out.println("selectEstate");
+        List<FcEstate> estateList = estateService.selectEstate(company);
+        System.out.println("==============");
+        System.out.println(estateList);
+        return JSONObject.toJSONString(new ReturnObject(estateList));
+    }
+
 
 }

@@ -167,4 +167,11 @@ public class EstateService {
         return fcCellMapper.selectList(wrapper);
     }
 
+    public List<FcEstate> selectEstate(String company){
+        QueryWrapper<FcEstate> wrapper = new QueryWrapper<>();
+        wrapper.eq("company",company);
+
+        return estateMapper.selectList(wrapper);
+    }
+
 }

@@ -11,7 +11,7 @@
                     >
                         <a-select v-model="form.company">
                             <a-select-option
-                                :value="index"
+                                :value="item.id"
                                 v-for="(item, index) in select"
                                 :key="index"
                             >{{ item.companyFullName }}
@@ -131,8 +131,8 @@
 
 <script>
     import { insertEstate, selectCompany } from '@/api/estate'
-
     const QS = require('qs')
+
     export default {
         name: 'Step1',
         data() {
@@ -195,7 +195,7 @@
                     if (valid) {
                         const data = QS.stringify(this.form)  //获取表单数据
                         insertEstate(data).then(res => {  // 发送请求到后台
-                            if (res.message == '1') {
+                            if (res.message === '1') {
                                 setTimeout(() => {
                                     this.$notification.success({
                                         message: 'success',

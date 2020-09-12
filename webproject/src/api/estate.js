@@ -91,6 +91,14 @@ export function selectCell(params) {
         method: 'post',
         data: params
     })
+}
+
+export function selectEstate(params) {
+    return axios({
+        url: api.selectEstate,
+        method: 'post',
+        data: params
+    })
 
 }
 
