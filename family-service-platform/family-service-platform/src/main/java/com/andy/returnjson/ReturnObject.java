@@ -1,9 +1,5 @@
 package com.andy.returnjson;
 
-/**
- * @author andy-liu
- * @date 2020/8/23 - 9:55 AM
- */
 
 /**
  * data format required by web project: code, message, result

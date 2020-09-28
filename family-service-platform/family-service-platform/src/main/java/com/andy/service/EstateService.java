@@ -4,18 +4,12 @@ import com.andy.bean.*;
 import com.andy.mapper.*;
 import com.andy.vo.CellMessage;
 import com.andy.vo.UnitMessage;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * @author andy-liu
- * @date 2020/8/28 - 10:21 PM
- */
 
 @Service
 public class EstateService {

@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author andy-liu
- * @date 2020/8/28 - 10:19 PM
- */
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {}, allowCredentials = "true")

@@ -6,11 +6,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/**
- * @author andy-liu
- * @date 2020/6/1 - 5:08 PM
- */
-
 
 /**
  * cross origin config version2

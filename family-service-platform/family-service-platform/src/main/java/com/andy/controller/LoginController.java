@@ -1,6 +1,5 @@
 package com.andy.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.andy.bean.UserRecord;
 import com.andy.returnjson.Permission;
@@ -8,21 +7,13 @@ import com.andy.returnjson.Permissions;
 import com.andy.returnjson.ReturnObject;
 import com.andy.returnjson.UserInfo;
 import com.andy.service.LoginService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-/**
- * @author andy-liu
- * @date 2020/6/4 - 4:17 PM
- */
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {}, allowCredentials = "true")
@@ -36,7 +27,6 @@ public class LoginController {
         // not a necessary procedure
         return true;
     }
-
 
     @RequestMapping("/auth/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {

@@ -1,9 +1,5 @@
 package com.andy.returnjson;
 
-/**
- * @author andy-liu
- * @date 2020/8/28 - 7:56 PM
- */
 public class Permission {
 
     private String permissionId;

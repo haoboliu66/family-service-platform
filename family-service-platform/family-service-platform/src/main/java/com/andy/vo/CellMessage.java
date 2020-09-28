@@ -1,9 +1,5 @@
 package com.andy.vo;
 
-/**
- * @author andy-liu
- * @date 2020/9/7 - 12:39 PM
- */
 public class CellMessage {
 
     private String unitCode;

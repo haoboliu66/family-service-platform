@@ -1,9 +1,5 @@
 package com.andy.vo;
 
-/**
- * @author andy-liu
- * @date 2020/9/6 - 10:58 AM
- */
 public class UnitMessage {
 
     private String buildingCode;

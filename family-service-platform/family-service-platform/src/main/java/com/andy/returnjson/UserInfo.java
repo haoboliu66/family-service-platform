@@ -1,9 +1,5 @@
 package com.andy.returnjson;
 
-/**
- * @author andy-liu
- * @date 2020/8/28 - 7:58 PM
- */
 public class UserInfo {
 
     private String name;
